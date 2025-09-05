@@ -15,7 +15,7 @@ let books = {
     isbn: "9780140448955",
     author: "Dante Alighieri",
     title: "The Divine Comedy",
-    reviews: {},
+    reviews: { cdk: "Great book!" },
   },
   4: {
     isbn: "9780140449198",

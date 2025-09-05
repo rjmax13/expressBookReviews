@@ -19,7 +19,7 @@ public_users.get("/", function (req, res) {
 // Get book details based on ISBN
 public_users.get("/isbn/:isbn", function (req, res) {
   //Write your code here
-  const { isbn } = req.params;
+  const isbn = req.params.isbn;
   const book = Object.values(books).find((b) => b.isbn === isbn);
   if (book) {
     res.json(book);
@@ -31,19 +31,32 @@ public_users.get("/isbn/:isbn", function (req, res) {
 // Get book details based on author
 public_users.get("/author/:author", function (req, res) {
   //Write your code here
-  return res.status(300).json({ message: "Yet to be implemented" });
+  const authorname = req.params.author;
+  const authorBooks = Object.values(books).filter(
+    (book) => book.author.toLowerCase() === authorname.toLowerCase()
+  );
+  return res.json(authorBooks);
 });
 
 // Get all books based on title
 public_users.get("/title/:title", function (req, res) {
   //Write your code here
-  return res.status(300).json({ message: "Yet to be implemented" });
+  const title = req.params.title;
+  const titleBooks = Object.values(books).filter(
+    (book) => book.title.toLowerCase() === title.toLowerCase()
+  );
+  return res.json(titleBooks);
 });
 
 //  Get book review
 public_users.get("/review/:isbn", function (req, res) {
-  //Write your code here
-  return res.status(300).json({ message: "Yet to be implemented" });
+  const isbn = req.params.isbn;
+  const book = Object.values(books).find((b) => b.isbn === isbn);
+  if (book) {
+    return res.json(book.reviews);
+  } else {
+    return res.status(404).json({ message: "Book not found" });
+  }
 });
 
 module.exports.general = public_users;
